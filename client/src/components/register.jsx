@@ -1,23 +1,32 @@
 import './components.css';
-import {Link} from 'react-router-dom';
-import {useState} from 'react';
+import {use, useState} from 'react';
 import axios from 'axios';
+import {Link, useNavigate } from 'react-router-dom';
+
 function Register() {
     
     const [Username, setUsername] = useState('');
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
-
+    const data = {
+        username: Username,
+        email: Email,       
+        password: Password  
+    };
+    const navigate=useNavigate();
+    console.log(data)
     const handleSubmit=(e)=>{
         e.preventDefault();
-        axios.post("http://localhost:5000/register",{ Email, Username, Password})
+        axios.post("http://localhost:5000/register",data)
         .then(res=>{
             console.log(res);
+            navigate('/login')
         })
         .catch(err=>{
             console.log(err)
         })
     }
+
     return (
         <div className='Login-cont'>
             <h1>Register</h1>

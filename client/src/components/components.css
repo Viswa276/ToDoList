@@ -13,13 +13,6 @@ hr{
     background-color: rgb(255, 255, 255);
     border: none;
 }
-h1{
-    font-size: 40px;
-    height: 5vw;
-    color: rgb(255, 255, 255);
-    width: 100vw;
-    text-align: center;
-}
 /* @media screen and (max-width: 768px) { */
     /* this works for any device more than size of mobile phone actually ther is no neeed of mediaQuery here */
 .Login-cont{
@@ -74,6 +67,31 @@ h1{
     font-size: 30px;
     margin-bottom: 20px;
 }
+.top h1{
+    font-size: 40px;
+    height: 5vw;
+    color: rgb(255, 255, 255);
+    width: 50vw;
+    text-align: center;
+}
+.top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 2rem;
+}
+.top button{
+    background-color: rgb(255, 48, 48);
+    padding: 0.4rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+.top button:hover{
+    background-color: rgb(198, 0, 0);
+}
+
 .task-list-cont{
     display: flex;
     align-items: center;

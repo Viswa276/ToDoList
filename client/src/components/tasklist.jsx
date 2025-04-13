@@ -2,9 +2,19 @@ import { useState } from 'react';
 import './components.css';
 function Task_list(){
     const [task,setTask]=useState('');
+
+    const clearsession=()=>{
+        
+    }
+
+
+
     return(
         <>
-        <h1>Task List</h1>
+        <div className='top'>
+            <h1>Task List</h1>
+            <button >Logout</button>
+        </div>
         <div className='task-list-cont'>
             <div className='tasks-list'>
                 <div className='task-list-modification'>
