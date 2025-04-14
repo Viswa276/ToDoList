@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import './components.css';
+import {useNavigate} from 'react-router-dom';
 function Task_list(){
     const [task,setTask]=useState('');
-
+    const navigate=useNavigate();
     const clearsession=()=>{
-        
+        if(window.confirm("Are you sure, want to logout?")){
+        localStorage.removeItem('accessToken')
+        localStorage.removeItem('refreshToken')
+        navigate('/login');}
     }
-
-
 
     return(
         <>
         <div className='top'>
             <h1>Task List</h1>
-            <button >Logout</button>
+            <button onClick={clearsession}>Logout</button>
         </div>
         <div className='task-list-cont'>
             <div className='tasks-list'>

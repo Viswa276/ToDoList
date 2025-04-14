@@ -113,7 +113,6 @@ hr{
 .task-list-cont .tasks-list .task-list-modification{
     display: flex;
     width: 100vw;
-    gap: 20px;
 }
 .task-list-cont .tasks-list .task-list-modification p{
     font-size: large;

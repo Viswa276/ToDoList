@@ -5,11 +5,12 @@ const bcrypt=require('bcrypt')
 require('dotenv').config();
 const generatAccesstoken = require('./middleware/JWT.js').generatAccesstoken;
 const generateRefreshtoken = require('./middleware/JWT.js').generateRefreshtoken;
-
+const authenticateToken = require('./middleware/auth');
 const app=express()
 
-app.use(cors())
+
 app.use(express.json())
+app.use(cors())
 
 const mongodb_uri=process.env.MONGO_URI;
 mongoose.connect(mongodb_uri)
@@ -47,7 +48,7 @@ app.post('/login',async (req,res)=>{
         const user= await Registermodel.findOne({username:username});
         if(!user){
             console.log("No such user found")
-            return res.status(400).json({message:"User not found"})
+            return res.status(404).json({message:"User not found"})
         }
 
         const isMathch=await bcrypt.compare(password,user.password);
@@ -55,12 +56,14 @@ app.post('/login',async (req,res)=>{
         if(!isMathch){
             return res.status(400).json({message:"Invalid password"})
         }
+        const payload = { username: user.username, id: user._id }; 
+        const newaccessToken = generatAccesstoken(payload);
+        const newrefreshToken = generateRefreshtoken(payload);
         console.log("Login successful")
-        const accessToken= generatAccesstoken(user);
-        const refreshToken= generateRefreshtoken(user);
         return res.status(200).json({
             message: "Login Successful",
-            accessToken,refreshToken,
+            accessToken:newaccessToken,
+            refreshToken:newrefreshToken,
             username: user.username
         });
 
@@ -71,6 +74,8 @@ app.post('/login',async (req,res)=>{
     
     console.log("Received login data",req.body);
 })
+
+
 
 const port=process.env.PORT;
 app.listen(port,()=>{

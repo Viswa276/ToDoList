@@ -9,13 +9,14 @@ function Login(){
     const [Username, setUsername] = useState('');
     const [Password, setPassword] = useState('');
 
-    const handelLoginRequest=(e)=>{
+    const handleLoginRequest=(e)=>{
         e.preventDefault();
         axios.post("http://localhost:5000/login",{username:Username,password:Password})
         .then(res=>{
             if(res.data.message === "Login Successful"){
-                localStorage.setItem("accesstoken",res.data.accessToken)
+                localStorage.setItem("accessToken",res.data.accessToken)
                 localStorage.setItem("refreshToken",res.data.refreshToken)
+                console.log("Token set successfully")
                 navigate('/task-list');
             }
             else{
@@ -27,14 +28,12 @@ function Login(){
             console.log(err)
         })
     }
-    
-
     return(
         <div className="Login-cont">
             <h1>Login</h1>
-            <form  method="POST" onSubmit={handelLoginRequest}>   
+            <form  method="POST" onSubmit={handleLoginRequest}>   
                 <input aria-label='Username' type="text" placeholder="Username" onChange={(e)=>setUsername(e.target.value)} name='username'/>
-                <input aria-label='password' type="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)} name='password'/>
+                <input aria-label='Password' type="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)} name='password'/>
                 <button type="submit">Login</button>
             </form>
             <p>Don't have an account? <Link to="/register">Click here</Link> </p>
