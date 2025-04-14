@@ -19,8 +19,11 @@ function Login(){
                 console.log("Token set successfully")
                 navigate('/task-list');
             }
-            else{
-                alert("Login Failed");
+            else if(res.data.message === "Invalid password"){
+                alert("Login password is wrong");
+            }
+            else if(res.data.message === "User not found"){
+                alert("No such user found");
             }
             console.log(res);
         })

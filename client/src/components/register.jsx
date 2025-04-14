@@ -20,6 +20,10 @@ function Register() {
         axios.post("http://localhost:5000/register",data)
         .then(res=>{
             console.log(res);
+            if(res.data.message === "User already exist"){
+                alert("User already exist");
+                return res.json({message:"User already exists"});
+            }
             navigate('/login')
         })
         .catch(err=>{

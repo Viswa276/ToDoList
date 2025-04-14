@@ -72,6 +72,7 @@ hr{
     height: 5vw;
     color: rgb(255, 255, 255);
     width: 50vw;
+    margin-left: 20%;
     text-align: center;
 }
 .top{
@@ -92,16 +93,16 @@ hr{
     background-color: rgb(198, 0, 0);
 }
 
-.task-list-cont{
+ .task-list-cont{
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-around;
-    gap: 20px;
+    gap: 1rem;
     margin-top:5rem ;
     height: 100vh;
     width: 100vw;
 }
+
 .task-list-cont .tasks-list{
     display: flex;
     flex-direction: column;
@@ -112,7 +113,9 @@ hr{
 } 
 .task-list-cont .tasks-list .task-list-modification{
     display: flex;
-    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 .task-list-cont .tasks-list .task-list-modification p{
     font-size: large;
@@ -121,11 +124,11 @@ hr{
     text-align: left;
     min-width: 80vw;
     height: 1.5rem;
-    overflow-y: auto;
+    border-radius: 10px;
 }
 .task-list-cont .tasks-list .task-list-modification button{
-    padding: 0.5rem 2rem;
-    max-height: 2rem;
+    padding: 1%;
+    margin: 1%;
     border-radius: 5px;
     border: none;
     background-color:rgb(38, 38, 255);
@@ -166,4 +169,4 @@ hr{
 }
 .task-list-cont .task-list-input button:hover{
     background-color: blue;
-}
+} 

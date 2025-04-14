@@ -28,9 +28,13 @@ const Registermodel=mongoose.model('Register',registerSchema);
 app.post('/register',async (req, res) => {
     console.log("Received registration data");
     const { email, username, password } = req.body;
-
+    const existingUser=await Registermodel.findOne({username:username})
+    
+    if(existingUser){
+        return res.json({message:"User already exist"});
+    }
+    
     const hashedPassword = await bcrypt.hash(password,10);
-
     Registermodel.create({email:email,username:username,password:hashedPassword})
     .then(data => {
         console.log("Data saved")
@@ -44,17 +48,16 @@ app.post('/register',async (req, res) => {
 
 app.post('/login',async (req,res)=>{
     const {username,password}=req.body;
+    console.log("Login data found")
     try{
         const user= await Registermodel.findOne({username:username});
         if(!user){
-            console.log("No such user found")
-            return res.status(404).json({message:"User not found"})
+            console.log("No such user found");
+            return res.json({message:"User not found"})
         }
-
         const isMathch=await bcrypt.compare(password,user.password);
-        
         if(!isMathch){
-            return res.status(400).json({message:"Invalid password"})
+            return res.json({message:"Invalid password"})
         }
         const payload = { username: user.username, id: user._id }; 
         const newaccessToken = generatAccesstoken(payload);
@@ -74,8 +77,6 @@ app.post('/login',async (req,res)=>{
     
     console.log("Received login data",req.body);
 })
-
-
 
 const port=process.env.PORT;
 app.listen(port,()=>{
